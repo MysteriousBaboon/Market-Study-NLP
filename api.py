@@ -1,14 +1,15 @@
-from flask import Flask, request, escape
+from flask import Flask
 import scrap
 import json
-import matplotlib.pyplot
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
+
 @app.route('/')
 def home_page():
-  return 'welcome to the best API'
+    return 'welcome to the best API'
+
 
 @app.route('/locality=<local>/domain=<domain>/')
 def search(local, domain):
@@ -18,7 +19,6 @@ def search(local, domain):
     test = json.dumps(parse, indent=4)
     open('data.json', 'w').write(str(test))
     return str(test)
-
 
 
 app.run(host='127.0.0.1', port=5000)
