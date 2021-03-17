@@ -89,5 +89,5 @@ def scrap_api(field: str, location: str):
 
         #TODO df = pd.DataFrame(columns=['company', 'category', 'global_note', 'number_reviews', 'date', '])
 
-    df.to_csv("api.csv", index=False)
+    return df
 
