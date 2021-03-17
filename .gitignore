@@ -1,2 +1,3 @@
 venv/
-.xml
+*.xml
+.idea/

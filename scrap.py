@@ -91,8 +91,3 @@ def scrap_api(field: str, location: str):
 
     df.to_csv("api.csv", index=False)
 
-
-
-
-
-scrap_api("food_beverages_tobacco", "paris")
