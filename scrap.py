@@ -18,40 +18,42 @@ def scrap_db():
     df = pd.DataFrame(columns=['company', 'category', 'date', 'review', 'note'])
 
     for category in category_urls:
-        page = requests.get(domain + under_domain + category)
-        soup = BeautifulSoup(page.text, 'lxml')
+        for i in range(1, 11):
+            number = f"?page={i}"
+            page = requests.get(domain + under_domain + category + number)
+            soup = BeautifulSoup(page.text, 'lxml')
 
-        company_urls = soup.find_all("a", {"class": "link_internal__YpiJI link_wrapper__LEdx5",
-                                         "target": "_blank", "aria-label": "", "rel": ""})
+            company_urls = soup.find_all("a", {"class": "link_internal__YpiJI link_wrapper__LEdx5",
+                                             "target": "_blank", "aria-label": "", "rel": ""})
 
-        for company in company_urls:
-            url = domain + company["href"]
-            page_2 = requests.get(url)
-            soup_2 = BeautifulSoup(page_2.text, 'lxml')
+            for company in company_urls:
+                url = domain + company["href"]
+                page_2 = requests.get(url)
+                soup_2 = BeautifulSoup(page_2.text, 'lxml')
 
-            comp_name = soup_2.find("span", {"class": "multi-size-header__big"}).text
-            reviews = soup_2.find_all("div", {"class": "review-content"})
+                comp_name = soup_2.find("span", {"class": "multi-size-header__big"}).text
+                reviews = soup_2.find_all("div", {"class": "review-content"})
 
-            for el in reviews:
-                stars = el.find("div", {"class": "star-rating star-rating--medium"}).find('img')['alt'][0]
-                text = el.find("p", {"class": "review-content__text"})
+                for el in reviews:
+                    stars = el.find("div", {"class": "star-rating star-rating--medium"}).find('img')['alt'][0]
+                    text = el.find("p", {"class": "review-content__text"})
 
-                try:
+                    try:
 
-                    date = el.find("p", {"class": "review-content__dateOfExperience"}).text
-                except:
-                    date = "too far"
-                try:
-                    text = text.text
-                except:
-                    text = None
+                        date = el.find("p", {"class": "review-content__dateOfExperience"}).text
+                    except:
+                        date = "too far"
+                    try:
+                        text = text.text
+                    except:
+                        text = None
 
-                df = df.append({"company": comp_name, "category": category,
-                                "date": date, 'review': text, "note": stars}, ignore_index=True)
-    df.to_csv("scrap.csv")
+                    df = df.append({"company": comp_name, "category": category,
+                                    "date": date, 'review': text, "note": stars}, ignore_index=True)
+    df.to_csv("scrap.csv", index=False)
 
 
-def scrap_api(field, location):
+def scrap_api(field: str, location: str):
     df = pd.DataFrame(columns=['company', 'date', 'review', 'note'])
 
     page = requests.get(domain + under_domain + field + f"?location={location}")
@@ -87,10 +89,10 @@ def scrap_api(field, location):
 
         #TODO df = pd.DataFrame(columns=['company', 'category', 'global_note', 'number_reviews', 'date', '])
 
-    df.to_csv("api.csv")
+    df.to_csv("api.csv", index=False)
 
 
 
 
 
-scrap_api("electronics_technology", "reims")
+scrap_api("food_beverages_tobacco", "paris")
