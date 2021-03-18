@@ -37,7 +37,7 @@ def scrape_page(url):
         try:
             text = text.text
         except:
-            text = None
+            continue
 
         ret = {"company": comp_name, "date": date, 'review': text, "note": stars}
 
@@ -76,7 +76,7 @@ def scrap_db():
                     try:
                         text = text.text
                     except:
-                        text = None
+                        continue
 
                     df = df.append({"company": comp_name, "category": category,
                                     "date": date, 'review': text, "note": stars}, ignore_index=True)
@@ -109,7 +109,6 @@ def scrap_api(field: str, location: str):
 
         #TODO df = pd.DataFrame(columns=['company', 'category', 'global_note', 'number_reviews', 'date', '])
     print(time.time() - start_time)
-    print(api_df)
     return api_df
 
 scrap_api("sports", "paris")

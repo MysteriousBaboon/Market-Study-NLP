@@ -3,3 +3,4 @@ venv/
 .idea/
 *.json
 __pycache__/scrap.cpython-38.pyc
+sentiments.pt

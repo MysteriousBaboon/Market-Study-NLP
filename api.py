@@ -1,6 +1,7 @@
 from flask import Flask
 import scrap
 import json
+import NLP
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,10 +15,11 @@ def home_page():
 @app.route('/locality=<local>/domain=<domain>/')
 def search(local, domain):
     df = scrap.scrap_api(domain, local)
-    result = df.to_json(orient='split')
+    df_lab = NLP.predict(df)
+    result = df_lab.to_json(orient='split')
     parse = json.loads(result)
     test = json.dumps(parse, indent=4)
-    open('data.json', 'w').write(str(test))
+    #open('data.json', 'w').write(str(test))
     return str(test)
 
 
