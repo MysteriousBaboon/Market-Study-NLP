@@ -2,5 +2,5 @@ venv/
 *.xml
 .idea/
 *.json
-__pycache__/scrap.cpython-38.pyc
+__pycache__/
 sentiments.pt

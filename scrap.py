@@ -105,10 +105,5 @@ def scrap_api(field: str, location: str):
     for t in threads:
         t.join()
 
-
-
-        #TODO df = pd.DataFrame(columns=['company', 'category', 'global_note', 'number_reviews', 'date', '])
-    print(time.time() - start_time)
+    print(f"Scraping exec time = {time.time() - start_time}")
     return api_df
-
-scrap_api("sports", "paris")
