@@ -92,12 +92,10 @@ def scrap_api(field: str, location: str):
     page = requests.get(domain + under_domain + field + f"?location={location}")
 
     soup = BeautifulSoup(page.text, 'lxml')
-
     company_urls = soup.find_all("a", {"class": "link_internal__YpiJI link_wrapper__LEdx5",
                                      "target": "_blank",
                                      "aria-label": "",
                                      "rel": ""})
-
     threads = [threading.Thread(target=scrape_page,args=(url,)) for url in company_urls]
     for t in threads:
         t.start()
