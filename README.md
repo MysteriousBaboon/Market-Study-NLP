@@ -1,7 +1,7 @@
 # Market-Study-NLP
 ## What is it?
 It's an api that:
-1. Scrape TrustPilot about a specified domain and a locality (like a city).
+1. Scrap TrustPilot about a specified domain and a locality (like a city).
 2. Use CamemBERT(a French NLP model) on the data gathered to predict notes and harmonise values.
 3. Return a JSon containg the most used Pos/Neg/Old/Recent words, the number of reviews and companies.
 
