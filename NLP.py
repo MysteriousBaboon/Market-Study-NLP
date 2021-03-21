@@ -5,7 +5,7 @@ import numpy
 
 TOKENIZER = CamembertTokenizer.from_pretrained('camembert-base', do_lower_case=True)
 model = CamembertForSequenceClassification.from_pretrained('camembert-base', num_labels=6)
-model.load_state_dict(torch.load("https://drive.google.com/file/d/1nVatsqN2uhUXmCCCKBa3KkRyHwGfszCl/view?usp=sharing", map_location=torch.device('cpu')))
+model.load_state_dict(torch.load("sentiment.pt", map_location=torch.device('cpu')))
 
 pipe = pipeline("sentiment-analysis", tokenizer=TOKENIZER, model=model)
 
