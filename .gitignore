@@ -4,4 +4,4 @@ venv/
 *.json
 __pycache__/
 sentiments.pt
-/sentiment.pt
+sentiment.pt
