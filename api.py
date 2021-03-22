@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 import scrap
 import NLP
@@ -28,7 +28,7 @@ def search(local, domain):
     no_reviews = int(treated_df['review'].count())
     no_companies = int(treated_df['company'].nunique())
 
-    return jsonify(
+    json = jsonify(
             wordcloud=
                     {'recent':
                         {
@@ -44,6 +44,10 @@ def search(local, domain):
             no_reviews=no_reviews,
             no_companies=no_companies
                    )
+
+    return render_template("dashboard.html", json=json)
+# noms des entreprises qui ont le plus de reviews
+# treated_df['review'].tolist()
 
 
 app.run(host='127.0.0.1', port=5000)
