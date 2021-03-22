@@ -22,5 +22,5 @@ def predict(dataset):
         df.at[index, 'pred'] = note
     df["pred"] = df["pred"].astype(int)
 
-    print(f"Scraping exec time = {time.time() - start_time}")
+    print(f"NLP exec time = {time.time() - start_time}")
     return df
