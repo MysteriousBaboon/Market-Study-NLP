@@ -1,6 +1,7 @@
 from transformers import CamembertForSequenceClassification, CamembertTokenizer, pipeline
 import torch
 import numpy
+import time
 
 
 TOKENIZER = CamembertTokenizer.from_pretrained('camembert-base', do_lower_case=True)
@@ -11,6 +12,7 @@ pipe = pipeline("sentiment-analysis", tokenizer=TOKENIZER, model=model)
 
 
 def predict(dataset):
+    start_time = time.time()
     df = dataset
     df['pred'] = numpy.NaN
 
@@ -18,8 +20,7 @@ def predict(dataset):
         text = row['review']
         note = pipe(text)[0]["label"][-1]
         df.at[index, 'pred'] = note
-    return df
+    df["pred"] = df["pred"].astype(int)
 
-'''
-f =  scrap.scrap_api("sports", "paris")
-predict(f)'''
+    print(f"Scraping exec time = {time.time() - start_time}")
+    return df

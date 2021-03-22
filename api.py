@@ -5,7 +5,7 @@ import NLP
 import utils
 
 app = Flask(__name__)
-# app.config['DEBUG'] = True
+
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
@@ -16,18 +16,14 @@ def home_page():
 
 @app.route('/locality=<local>/category=<domain>/')
 def search(local, domain):
-
     scrap_df = scrap.scrap_api(domain, local)
-    print(scrap_df.date)
-
-
 
     treated_df = NLP.predict(scrap_df)
-    treated_df["note"] = treated_df["note"].astype(int)
-    pos_recent = utils.remove_stop(treated_df[(treated_df["note"] > 3) & (treated_df["date"] != "too far")])
-    neg_recent = utils.remove_stop(treated_df[(treated_df["note"] <= 3) & (treated_df["date"] != "too far")])
-    pos_old = utils.remove_stop(treated_df[(treated_df["note"] > 3) & (treated_df["date"] == "too far")])
-    neg_old = utils.remove_stop(treated_df[(treated_df["note"] <= 3) & (treated_df["date"] == "too far")])
+
+    pos_recent = utils.remove_stop(treated_df[(treated_df["pred"] > 3) & (treated_df["date"] != "too far")])
+    neg_recent = utils.remove_stop(treated_df[(treated_df["pred"] <= 3) & (treated_df["date"] != "too far")])
+    pos_old = utils.remove_stop(treated_df[(treated_df["pred"] > 3) & (treated_df["date"] == "too far")])
+    neg_old = utils.remove_stop(treated_df[(treated_df["pred"] <= 3) & (treated_df["date"] == "too far")])
 
     no_reviews = int(treated_df['review'].count())
     no_companies = int(treated_df['company'].nunique())
@@ -53,7 +49,8 @@ def search(local, domain):
                         }
                     },
             no_reviews=no_reviews,
-            no_companies=no_companies
+            no_companies=no_companies,
+            noms = nom
                    )
 '''
 app.run(host='127.0.0.1', port=5000)
