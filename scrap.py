@@ -48,7 +48,7 @@ def scrap_db():
     df = pd.DataFrame(columns=['company', 'category', 'date', 'review', 'note'])
 
     for category in category_urls:
-        for i in range(1, 11):
+        for i in range(1, ):
             number = f"?page={i}"
             page = requests.get(domain + under_domain + category + number)
             soup = BeautifulSoup(page.text, 'lxml')
