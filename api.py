@@ -5,15 +5,16 @@ import NLP
 import utils
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
+# app.config['DEBUG'] = True
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
 @app.route('/p')
 def home_page():
-    return "Welcome to a NLP Sentimenet analysis API. Look at the README to learn how to use it."
+    return "Welcome to a NLP Sentiment analysis API. Look at the README to learn how to use it."
 
 
-@app.route('/locality=<local>/domain=<domain>/')
+@app.route('/locality=<local>/category=<domain>/')
 def search(local, domain):
 
     scrap_df = scrap.scrap_api(domain, local)
