@@ -5,3 +5,4 @@ venv/
 __pycache__/
 sentiments.pt
 sentiment.pt
+images/*.png

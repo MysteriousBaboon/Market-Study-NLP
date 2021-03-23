@@ -1,7 +1,9 @@
 import nltk
 from nltk.corpus import stopwords
 from collections import Counter
+import wordcloud
 import warnings
+
 warnings.filterwarnings("ignore")
 
 # Stopwords
@@ -25,3 +27,52 @@ def remove_stop(df):
             cleaned_occurrence.append(word)
 
     return cleaned_occurrence
+
+
+def create_wcloud(data):
+    word_occ = []
+    # For each tuple (word:occurrence) multiply word by occurrence
+    wordocc = [(lambda a: ((a[0] + "|") * a[1])[0:-1])(x) for x in data["recent"]["pos"]]
+    # Transform the multiples list in one list
+    [(lambda b: word_occ.extend(b.split("|")))(y) for y in wordocc]
+    # Transform the list to a string
+    text = ' '.join(word_occ)
+    # Generate the Wordcloud and create an image
+    cloud = wordcloud.WordCloud().generate(text)
+    cloud.to_file("images/rec_pos.png")
+
+    word_occ = []
+    # For each tuple (word:occurrence) multiply word by occurrence
+    wordocc = [(lambda a: ((a[0] + "|") * a[1])[0:-1])(x) for x in data["recent"]["neg"]]
+    # Transform the multiples list in one list
+    [(lambda b: word_occ.extend(b.split("|")))(y) for y in wordocc]
+    # Transform the list to a string
+    text = ' '.join(word_occ)
+    # Generate the Wordcloud and create an image
+    cloud = wordcloud.WordCloud().generate(text)
+    cloud.to_file("images/rec_neg.png")
+
+    word_occ = []
+    # For each tuple (word:occurrence) multiply word by occurrence
+    wordocc = [(lambda a: ((a[0] + "|") * a[1])[0:-1])(x) for x in data["old"]["pos"]]
+    # Transform the multiples list in one list
+    [(lambda b: word_occ.extend(b.split("|")))(y) for y in wordocc]
+    # Transform the list to a string
+    text = ' '.join(word_occ)
+    # Generate the Wordcloud and create an image
+    cloud = wordcloud.WordCloud().generate(text)
+    cloud.to_file("images/old_pos.png")
+
+    word_occ = []
+    # For each tuple (word:occurrence) multiply word by occurrence
+    wordocc = [(lambda a: ((a[0] + "|") * a[1])[0:-1])(x) for x in data["old"]["neg"]]
+    # Transform the multiples list in one list
+    [(lambda b: word_occ.extend(b.split("|")))(y) for y in wordocc]
+    # Transform the list to a string
+    text = ' '.join(word_occ)
+    # Generate the Wordcloud and create an image
+    cloud = wordcloud.WordCloud().generate(text)
+    cloud.to_file("images/old_neg.png")
+
+
+

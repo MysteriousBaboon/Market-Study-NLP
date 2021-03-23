@@ -9,9 +9,10 @@ app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
-@app.route('/p')
+@app.route('/')
 def home_page():
-    return "Welcome to a NLP Sentiment analysis API. Look at the README to learn how to use it."
+    return render_template("dashboard.html", wordcloud={"test": {"f": 1, "p": 4}})
+    # return "Welcome to a NLP Sentiment analysis API. Look at the README to learn how to use it."
 
 
 @app.route('/locality=<local>/category=<domain>/')
@@ -28,9 +29,16 @@ def search(local, domain):
     no_reviews = int(treated_df['review'].count())
     no_companies = int(treated_df['company'].nunique())
 
-    wordcloud = {'recent':{'pos':pos_recent, "neg":neg_recent}, 'old': {'pos':pos_old, 'neg':neg_old}}
+    wordcloud = {'recent':
+                 {'pos': pos_recent, "neg": neg_recent},
+                 'old':
+                 {'pos': pos_old, 'neg': neg_old}}
 
-    return render_template("dashboard.html", wordcloud= pos_recent, review = no_reviews)
+    utils.create_wcloud(wordcloud)
+
+    return render_template("dashboard.html", wordcloud=wordcloud, review=no_reviews)
+
+
 # noms des entreprises qui ont le plus de reviews
 # treated_df['review'].tolist()
 

@@ -2,7 +2,8 @@ from transformers import CamembertForSequenceClassification, CamembertTokenizer,
 import torch
 import numpy
 import time
-
+import warnings
+warnings.filterwarnings("ignore")
 
 TOKENIZER = CamembertTokenizer.from_pretrained('camembert-base', do_lower_case=True)
 model = CamembertForSequenceClassification.from_pretrained('camembert-base', num_labels=6)
