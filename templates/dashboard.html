@@ -3,10 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <p> {{review}}</p>
-    <p>{{wordcloud}}</p>
-</head>
-<body>
+    <link rel="stylesheet" href="/static/css/style.css">
 
+</head>
+<body style="margin:0px;">
+<div class="wrapper">
+    <div class="data">
+    <p> Number of reviews: <b>{{review}}</b></p>
+    <p> Number of different companies: <b>{{company}}</b></p>
+        <p>Company with most review: <b> {{most_company}}</b></p>
+    </div>
+    <div class="wordcloud">
+            <p>Old Positive WordCloud</p>
+            <img src="/static/images/old_pos.png">
+    </div>
+
+    <div class="wordcloud">
+            <p>Old Negative WordCloud</p>
+            <img src="/static/images/old_neg.png">
+    </div>
+<br>
+
+    <div class="wordcloud">
+            <p>Recent Positive WordCloud</p>
+            <img src="/static/images/rec_pos.png">
+    </div>
+    <div class="wordcloud">
+            <p>Recent Negative WordCloud</p>
+            <img src="/static/images/rec_neg.png">
+    </div>
+</div>
 </body>
 </html>

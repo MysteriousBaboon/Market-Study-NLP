@@ -39,7 +39,7 @@ def create_wcloud(data):
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
     cloud = wordcloud.WordCloud().generate(text)
-    cloud.to_file("images/rec_pos.png")
+    cloud.to_file("static/images/rec_pos.png")
 
     word_occ = []
     # For each tuple (word:occurrence) multiply word by occurrence
@@ -50,7 +50,7 @@ def create_wcloud(data):
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
     cloud = wordcloud.WordCloud().generate(text)
-    cloud.to_file("images/rec_neg.png")
+    cloud.to_file("static/images/rec_neg.png")
 
     word_occ = []
     # For each tuple (word:occurrence) multiply word by occurrence
@@ -61,7 +61,7 @@ def create_wcloud(data):
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
     cloud = wordcloud.WordCloud().generate(text)
-    cloud.to_file("images/old_pos.png")
+    cloud.to_file("static/images/old_pos.png")
 
     word_occ = []
     # For each tuple (word:occurrence) multiply word by occurrence
@@ -72,7 +72,7 @@ def create_wcloud(data):
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
     cloud = wordcloud.WordCloud().generate(text)
-    cloud.to_file("images/old_neg.png")
+    cloud.to_file("static/images/old_neg.png")
 
 
 

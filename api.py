@@ -28,19 +28,20 @@ def search(local, domain):
 
     no_reviews = int(treated_df['review'].count())
     no_companies = int(treated_df['company'].nunique())
+    most_company = str(treated_df['company'].value_counts()[:1].keys().tolist()[0])
 
     wordcloud = {'recent':
                  {'pos': pos_recent, "neg": neg_recent},
                  'old':
                  {'pos': pos_old, 'neg': neg_old}}
 
-    utils.create_wcloud(wordcloud)
+    try:
+        utils.create_wcloud(wordcloud)
+        return render_template("dashboard.html", review=no_reviews,
+                               company=no_companies, most_company=most_company)
 
-    return render_template("dashboard.html", wordcloud=wordcloud, review=no_reviews)
-
-
-# noms des entreprises qui ont le plus de reviews
-# treated_df['review'].tolist()
+    except:
+        return "No reviews on this combination."
 
 '''
     json = jsonify(
