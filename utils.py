@@ -30,15 +30,11 @@ def remove_stop(df):
 
 
 def create_wcloud(data):
-    word_occ = []
-    # For each tuple (word:occurrence) multiply word by occurrence
-    wordocc = [(lambda a: ((a[0] + "|") * a[1])[0:-1])(x) for x in data["recent"]["pos"]]
-    # Transform the multiples list in one list
-    [(lambda b: word_occ.extend(b.split("|")))(y) for y in wordocc]
-    # Transform the list to a string
-    text = ' '.join(word_occ)
+    word_occ = {}
+    # Create a dict
+    [(lambda b: word_occ.update({y[0]: y[1]}))(y) for y in data["recent"]["pos"]]
     # Generate the Wordcloud and create an image
-    cloud = wordcloud.WordCloud().generate(text)
+    cloud = wordcloud.WordCloud(max_words=20, repeat=False, collocations = False).fit_words(word_occ)
     cloud.to_file("static/images/rec_pos.png")
 
     word_occ = []
@@ -49,7 +45,7 @@ def create_wcloud(data):
     # Transform the list to a string
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
-    cloud = wordcloud.WordCloud().generate(text)
+    cloud = wordcloud.WordCloud(max_words=20, repeat=False, collocations = False).generate(text)
     cloud.to_file("static/images/rec_neg.png")
 
     word_occ = []
@@ -60,7 +56,7 @@ def create_wcloud(data):
     # Transform the list to a string
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
-    cloud = wordcloud.WordCloud().generate(text)
+    cloud = wordcloud.WordCloud(max_words=20, repeat=False, collocations = False).generate(text)
     cloud.to_file("static/images/old_pos.png")
 
     word_occ = []
@@ -71,7 +67,7 @@ def create_wcloud(data):
     # Transform the list to a string
     text = ' '.join(word_occ)
     # Generate the Wordcloud and create an image
-    cloud = wordcloud.WordCloud().generate(text)
+    cloud = wordcloud.WordCloud(max_words=20, repeat=False, collocations = False).generate(text)
     cloud.to_file("static/images/old_neg.png")
 
 

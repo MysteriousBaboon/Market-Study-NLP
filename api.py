@@ -34,9 +34,9 @@ def search(local, domain):
                  {'pos': pos_recent, "neg": neg_recent},
                  'old':
                  {'pos': pos_old, 'neg': neg_old}}
+    utils.create_wcloud(wordcloud)
 
     try:
-        utils.create_wcloud(wordcloud)
         return render_template("dashboard.html", review=no_reviews,
                                company=no_companies, most_company=most_company)
 
